@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
+
 # take environment variables from .env.
 load_dotenv()
 
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'sendoraApp',
     'rest_framework',
     'django_filters',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -152,8 +155,9 @@ REST_FRAMEWORK = {
 
     # Authentication settings
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 
     # Permission settings
@@ -164,7 +168,6 @@ REST_FRAMEWORK = {
     # Throttling settings
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.UserRateThrottle',
-        'rest_framework.throttling.AnonymousRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
         'user': '100/day',
@@ -187,4 +190,14 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
     ],
 
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=7),
+    "REFRESH_TOKEN_LIFETIME": timedelta(weeks=4),
+    "UPDATE_LAST_LOGIN": True,
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+
+    "TOKEN_OBTAIN_SERIALIZER": "sendoraApp.serializers.UserTokenObtainPairSerializer",
 }
