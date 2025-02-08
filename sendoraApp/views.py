@@ -1,6 +1,7 @@
 from rest_framework import status as status_codes, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from sendoraApp import models
 
 
 class UserDashboardView(APIView):
