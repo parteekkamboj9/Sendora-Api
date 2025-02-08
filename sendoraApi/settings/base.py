@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from django.templatetags.static import static
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
@@ -37,6 +37,7 @@ ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(' ')
 # Application definition
 
 INSTALLED_APPS = [
+    'unfold',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,6 +143,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -200,4 +205,18 @@ SIMPLE_JWT = {
     "SIGNING_KEY": SECRET_KEY,
 
     "TOKEN_OBTAIN_SERIALIZER": "sendoraApp.serializers.UserTokenObtainPairSerializer",
+}
+
+
+UNFOLD = {
+    "SITE_TITLE": "Sendora | Admin",
+    "SITE_HEADER": "Sendora Admin",
+    "SITE_ICON": {
+        "light": lambda request: static("icons/icon.svg"),
+        "dark": lambda request: static("icons/icon.svg"),
+    },
+    "SITE_LOGO": {
+        "light": lambda request: static("icons/logo.svg"),
+        "dark": lambda request: static("icons/logo.svg"),
+    },
 }
