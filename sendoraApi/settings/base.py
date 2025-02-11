@@ -207,16 +207,47 @@ SIMPLE_JWT = {
     "TOKEN_OBTAIN_SERIALIZER": "sendoraApp.serializers.UserTokenObtainPairSerializer",
 }
 
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 UNFOLD = {
     "SITE_TITLE": "Sendora | Admin",
     "SITE_HEADER": "Sendora Admin",
     "SITE_ICON": {
-        "light": lambda request: static("icons/icon.svg"),
-        "dark": lambda request: static("icons/icon.svg"),
+        "light": lambda request: "/media/icons/logo.svg",
+        "dark": lambda request: "/media/icons/logo.svg",
     },
-    "SITE_LOGO": {
-        "light": lambda request: static("icons/logo.svg"),
-        "dark": lambda request: static("icons/logo.svg"),
-    },
+    "SITE_FAVICONS": [
+        {
+            "rel": "icon",
+            "sizes": "32x32",
+            "type": "image/svg+xml",
+            "href": lambda request: "/media/icons/logo.svg",
+        },
+    ],
+    # "SIDEBAR": {
+    #     "show_search": True,
+    #     "show_all_applications": False,
+    #     "navigation": [
+    #         {
+    #             "title": _("Main"),
+    #             "separator": True,  # Top border
+    #             "collapsible": False,  # Collapsible group of links
+    #             "items": [
+    #                 {
+    #                     "title": _("Dashboard"),
+    #                     "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
+    #                     "link": reverse_lazy("admin:index"),
+    #                     # "badge": "sample_app.badge_callback",
+    #                     "permission": lambda request: request.user.is_superuser,
+    #                 },
+    #                 {
+    #                     "title": _("Users"),
+    #                     "icon": "people",
+    #                     "link": reverse_lazy("admin:auth_user_changelist"),
+    #                 },
+    #             ],
+    #         },
+    #     ],
+    # }
 }
