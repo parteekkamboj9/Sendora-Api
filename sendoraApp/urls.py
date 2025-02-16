@@ -11,6 +11,8 @@ authUrlPatterns = [
 
 userUrlPatterns = [
     path('user/dashboard/', views.UserDashboardView.as_view()),
+    path('google/callback/', views.GoogleLoginCallbackApi.as_view()),
+    path('google/url/', views.GoogleLoginApi.as_view()),
 ]
 
 
