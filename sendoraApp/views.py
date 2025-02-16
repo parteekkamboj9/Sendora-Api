@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from sendoraApp import models
 from sendoraApp import serializers
-from sendoraApp.services import get_user_data
+from sendoraApp.services import get_user_data, get_login_url
 
 FRONTEND_URL = os.environ['FRONTEND_URL']
 
@@ -19,6 +19,15 @@ class UserDashboardView(APIView):
 
 
 class GoogleLoginApi(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        url = get_login_url()
+        print(url)
+        return Response({'url': url}, status=status_codes.HTTP_200_OK)
+
+
+class GoogleLoginCallbackApi(APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, *args, **kwargs):
